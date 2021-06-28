@@ -2,7 +2,7 @@
 	<view class="content">
 			<!-- 所有内容的容器 -->
 			{{123}}
-			<view class="script-box" v-for="item in topics" :key="item.id">
+			<vie class="script-box" v-for="item in topics" :key="item.id">
 				<image class="script-img" :src="item.cover_url" />
 				<view class="script-world">
 					<view class="script-name">{{item.name}}</view>
@@ -38,15 +38,15 @@
 						customIcon: false,
 					},
 				],
-				current: 0
+				current: 0,
+				topics: [],
+				total: 0,
+				pagination: "",
 			};
-			total: 0;
-			pagination: "";
-			topics: [];
 		},
-		// onLoad(options) {
-		// 	this.getData();
-		// },
+		onLoad(options) {
+			this.getData();
+		},
 		onShow() {
 		    this.getData();
 		  },
