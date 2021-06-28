@@ -10605,33 +10605,20 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 var _api = _interopRequireDefault(__webpack_require__(/*! ./../request/api.js */ 48));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 
 {
-  // index(params = {}) {
-  //   return wxRequest.get(API.courseIndex, params);
-  // },
-  // item(id) {
-  //   return wxRequest.get(API.courseItem(id));
-  // },
-  // category(params = {}) {
-  //   return wxRequest.get(API.category, params);
-  // },
-  // search(params = {}) {
-  //   return wxRequest.get(API.courseSearch, params);
-  // },
-
   dramaClassify: function dramaClassify() {
-    return request.get(_api.default.dramaClassify);
+    return _wxrequest.default.get(_api.default.dramaClassify);
   },
   dramaList: function dramaList() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    return request.get(_api.default.dramaList, params);
+    return _wxrequest.default.get(_api.default.dramaList, params);
   },
   dramaDetails: function dramaDetails(id) {
-    return request.get("".concat(_api.default.dramaList, "/").concat(id));
+    return _wxrequest.default.get("".concat(_api.default.dramaList, "/").concat(id));
   },
   dramaComment: function dramaComment() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    return request.post(_api.default.dramaComment(id), params);
+    return _wxrequest.default.post(_api.default.dramaComment(id), params);
   },
   commentDelete: function commentDelete(id) {
-    return request.delete(_api.default.commentDelete(id));
+    return _wxrequest.default.delete(_api.default.commentDelete(id));
   } };exports.default = _default;
 
 /***/ }),
@@ -10745,19 +10732,8 @@ var request = function request(method, url, data, header) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // const MODE = "devlopment";
-// // const MODE = 'production';
-// const VERSION = "V0.0.1";
-// const PRODUCTION_APPID = 7;
-// const PRODUCTION_PREFIX = "https://course.jiker.com";
-// const DEVELOPMENT_PREFIX = "https://course.jiker.vip";
-// const PREFIX = MODE === "production" ? PRODUCTION_PREFIX : DEVELOPMENT_PREFIX;
-var API_PREFIX = "http://api.jevescript.com";var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var API_PREFIX = "http://api.jevescript.com";var _default =
 {
-  // MODE,
-  // version: VERSION,
-  // app_id: PRODUCTION_APPID,
-
   dramaClassify: "".concat(API_PREFIX, "/api/web/book-category"),
   dramaList: "".concat(API_PREFIX, "/api/web/books"),
   dramaComment: function dramaComment(id) {return "".concat(API_PREFIX, "/api/web/books/").concat(id, "/comment");},

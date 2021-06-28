@@ -1,23 +1,15 @@
 <template>
 	<view class="content">
-		<view class="u-page">
 			<!-- 所有内容的容器 -->
-			<div class="script-box" v-for="item in topics" :key="item.id">
-				<imgge class="script-img" :src="item.cover_url" />
+			{{123}}
+			<view class="script-box" v-for="item in topics" :key="item.id">
+				<image class="script-img" :src="item.cover_url" />
 				<view class="script-world">
 					<view class="script-name">{{item.name}}</view>
 					<view class="script-peoples">人数</view>
 				</view>
-			</div>
-			<div class="script-box" v-for="item in topics" :key="item.id">
-				<image class="script-img" src="{{}}"></image>
-				<view class="script-world">
-					<view class="script-name">{{item.name}}</view>
-					<view class="script-peoples">人数</view>
-				</view>
-			</div>
-
-		</view>
+			</view>
+			
 		<!-- 与包裹页面所有内容的元素u-page同级，且在它的下方 -->
 		<u-tabbar v-model="current" :list="list"></u-tabbar>
 	</view>
@@ -52,16 +44,20 @@
 			pagination: "";
 			topics: [];
 		},
-		onLoad(options) {
-			this.getData();
-		},
+		// onLoad(options) {
+		// 	this.getData();
+		// },
+		onShow() {
+		    this.getData();
+		  },
 		methods: {
 			getData() {
 			let params = {};
 				courseService.dramaList(params)
 					.then(res => {
 						console.log(res)
-						this.topics = res.data.list
+						this.topics = res.list
+						console.log(this.topics)
 					})
 			}
 		}
@@ -73,6 +69,7 @@
 
 		/* 		display: flex; */
 		background-color: #f5f5f5;
+		
 
 	}
 

@@ -171,14 +171,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-
-
-
-
-
-
-
-
 var _course = _interopRequireDefault(__webpack_require__(/*! ../../globals/service/course.js */ 46));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -196,18 +188,21 @@ var _course = _interopRequireDefault(__webpack_require__(/*! ../../globals/servi
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = { data: function data() {return { list: [{ iconPath: "home", selectedIconPath: "home-fill", text: '首页', count: 2, isDot: true, customIcon: false }, { iconPath: "account", selectedIconPath: "account-fill", text: '我的', count: 23, isDot: false, customIcon: false }], current: 0 };total: 0;pagination: "";
+var _default = { data: function data() {return { list: [{ iconPath: "home", selectedIconPath: "home-fill", text: '首页', count: 2, isDot: true, customIcon: false }, { iconPath: "account", selectedIconPath: "account-fill", text: '我的', count: 23,
+        isDot: false,
+        customIcon: false }],
+
+
+      current: 0 };
+
+    total: 0;
+    pagination: "";
     topics: [];
   },
-  onLoad: function onLoad(options) {
+  // onLoad(options) {
+  // 	this.getData();
+  // },
+  onShow: function onShow() {
     this.getData();
   },
   methods: {
@@ -216,7 +211,8 @@ var _default = { data: function data() {return { list: [{ iconPath: "home", sele
       _course.default.dramaList(params).
       then(function (res) {
         console.log(res);
-        _this.topics = res.data.list;
+        _this.topics = res.list;
+        console.log(_this.topics);
       });
     } } };exports.default = _default;
 
