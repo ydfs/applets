@@ -10612,7 +10612,7 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ./../request/api.js */
     return _wxrequest.default.get(_api.default.dramaList, params);
   },
   dramaDetails: function dramaDetails(id) {
-    return _wxrequest.default.get("".concat(_api.default.dramaList, "/").concat(id));
+    return _wxrequest.default.get(_api.default.dramaList(id));
   },
   dramaComment: function dramaComment() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     return _wxrequest.default.post(_api.default.dramaComment(id), params);

@@ -92,10 +92,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var render = function () {}
-var staticRenderFns = []
-var recyclableRender
 var components
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+}
+var recyclableRender = false
+var staticRenderFns = []
+render._withStripped = true
 
 
 
@@ -125,10 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -157,36 +159,23 @@ var _course = _interopRequireDefault(__webpack_require__(/*! ../../globals/servi
 //
 //
 //
-//
-//
-//
-var _default = { data: function data() {return { list: [{ iconPath: "home", selectedIconPath: "home-fill", text: '首页', count: 2, isDot: true, customIcon: false }, { iconPath: "account", selectedIconPath: "account-fill", text: '我的', count: 23,
-        isDot: false,
-        customIcon: false }],
-
-
-      current: 0,
-      topics: [],
-      total: 0,
-      pagination: "" };
-
-  },
-  onLoad: function onLoad(options) {
-    this.getData();
-  },
-  onShow: function onShow() {
-    this.getData();
-  },
-  methods: {
-    getData: function getData() {var _this = this;
+var _default = { data: function data() {return { current: 0, topics: [], total: 0, pagination: "" };}, onLoad: function onLoad(options) {this.getData();}, // onShow() {
+  // 	this.getData();
+  // },
+  methods: { getData: function getData() {var _this = this;
       var params = {};
       _course.default.dramaList(params).
       then(function (res) {
         console.log(res);
         _this.topics = res.list;
-        console.log(_this.topics);
       });
+    },
+    detailsPage: function detailsPage(id) {
+      uni.navigateTo({
+        url: "/pages/show/show" });
+
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

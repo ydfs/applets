@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint 'miniprogram/**/*.js' --fix"
   },
   "keywords": [],
   "author": "",
@@ -12,7 +12,11 @@
   "dependencies": {
     "uview-ui": "^1.8.4"
   },
-	"scripts": {
-	  "lint": "eslint 'miniprogram/**/*.js' --fix"
-	}
+  "devDependencies": {
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-json": "^3.0.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.2"
+  }
 }

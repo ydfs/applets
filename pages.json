@@ -1,5 +1,5 @@
 {
-	"easycom":{
+	"easycom": {
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
@@ -7,6 +7,18 @@
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "剧本杀"
+			}
+		},
+		{
+			"path": "pages/show/show",
+			"style": {
+				"navigationBarTitleText": "剧本内容"
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "我的"
 			}
 		}
 	],
@@ -16,24 +28,25 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"condition" : { //模式配置，仅开发期间生效
+	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)
-		"list": [
-			{
-				"name": "", //模式名称
-				"path": "", //启动页面，必选
-				"query": "" //启动参数，在页面的onLoad函数里面得到
-			}
-		]
+		"list": [{
+			"name": "", //模式名称
+			"path": "", //启动页面，必选
+			"query": "" //启动参数，在页面的onLoad函数里面得到
+		}]
 	},
 	"tabBar": {
-	    "list": [{
-	        "pagePath": "pages/index/index",
-
-	        "text": "剧本圈"
-	    }, {
-	        "pagePath": "pages/index/index",
-	        "text": "我的"
-	    }]
+		"list": [{
+			"pagePath": "pages/index/index",
+			"iconPath": "static/homePage.png",
+			"selectedIconPath":"static/homePage-active.png",
+			"text": "剧本圈"
+		}, {
+			"pagePath": "pages/my/my",
+			"iconPath":"static/my.png",
+			"selectedIconPath":"static/my-active.png",
+			"text": "我的"
+		}]
 	}
 }
