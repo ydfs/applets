@@ -40,7 +40,7 @@
 			},
 			detailsPage(id) {
 				uni.navigateTo({
-					url: "/pages/show/show",
+					url: "/pages/show/show?id=" + id,
 				});
 			}
 		}

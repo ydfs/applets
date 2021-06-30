@@ -9,7 +9,7 @@ export default {
 		return wxRequest.get(API.dramaList, params);
 	},
 	dramaDetails(id) {
-		return wxRequest.get(API.dramaList(id));
+		return wxRequest.get(`${API.dramaList}/${id}`);
 	},
 	dramaComment(params = {}) {
 		return wxRequest.post(API.dramaComment(id), params);

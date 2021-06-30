@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/my/my",
     "pages/index/index",
-    "pages/show/show",
-    "pages/my/my"
+    "pages/show/show"
   ],
   "subPackages": [],
   "window": {
@@ -27,5 +27,6 @@
       }
     ]
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
 }
