@@ -13,7 +13,7 @@
 </template>
 
 <script>
-	import courseService from "../../globals/service/course.js";
+	import Dramas from "../../globals/service/drama.js";
 	export default {
 		data() {
 			return {
@@ -32,7 +32,7 @@
 		methods: {
 			getData() {
 				let params = {};
-				courseService.dramaList(params)
+				Dramas.dramaList(params)
 					.then(res => {
 						console.log(res)
 						this.topics = res.list

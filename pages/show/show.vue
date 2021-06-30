@@ -14,7 +14,7 @@
 </template>
 
 <script>
-	import ScriptContent from "../../globals/service/course.js";
+	import dramaContent from "../../globals/service/drama.js";
 	export default {
 		data() {
 			return {
@@ -37,7 +37,7 @@
 		methods: {
 			getData(id) {
 				console.log(id)
-				ScriptContent.dramaDetails(id)
+				dramaContent.dramaDetails(id)
 					.then(res => {
 						console.log(res)
 						this.content = res

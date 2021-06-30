@@ -3,5 +3,6 @@ export default {
 	dramaClassify: `${API_PREFIX}/api/web/book-category`,
 	dramaList: `${API_PREFIX}/api/web/books`,
 	dramaComment: id => `${API_PREFIX}/api/web/books/${id}/comment`,
-	commentDelete: id => `${API_PREFIX}/api/web/books/${id}/comment/${id}`
+	commentDelete: id => `${API_PREFIX}/api/web/books/${id}/comment/${id}`,
+	login: `${API_PREFIX}/api/login`
 };

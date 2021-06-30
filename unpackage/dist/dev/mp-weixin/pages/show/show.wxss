@@ -1,0 +1,16 @@
+
+.classContent{
+	padding: 20px;
+}
+.u-page {}
+.script-box {
+	position: relative;
+	padding: 30px 10px 30px 30px;
+	background-color: #fff;
+	line-height: 40px;
+	border-bottom: 1px solid #e4e4e4;
+}
+.script-content{
+	padding-bottom: 10px;
+}
+

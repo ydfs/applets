@@ -16,5 +16,8 @@ export default {
 	},
 	commentDelete(id) {
 		return wxRequest.delete(API.commentDelete(id));
+	},
+	login(params = {}) {
+		return wxRequest.post(API.login, params);
 	}
 };
