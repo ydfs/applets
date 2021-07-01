@@ -187,8 +187,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 var _drama = _interopRequireDefault(__webpack_require__(/*! ../../globals/service/drama.js */ 103));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -216,40 +214,72 @@ var _drama = _interopRequireDefault(__webpack_require__(/*! ../../globals/servic
 //
 //
 //
-//
-//
-var _default = { data: function data() {return { isLogin: false, src: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-b6eae3250bb62fadb3d2527f466cf033_b.jpg&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627549727&t=e41792f8c8229ece547548781156b385' };}, methods: { requestLogin: function requestLogin(code) {var param = { code: code };_drama.default.login(params).then(function (res) {console.log(res);});commonApi.login(param).then(function (res) {});}, logOut: function logOut() {this.$store.commit("LOGOUT");uni.reLaunch({ url: '/pages/indexs/index' });}, getlocation: function getlocation() {uni.getLocation({ type: 'gcj02', // 默认值为wgs84；可选值（ 1.wgs84 返回 gps 坐标，2.gcj02 返回可用于 wx.openLocation 的坐标）
-        wgs84: false, // 传入 true 会返回高度信息，由于获取高度需要较高精确度，会减慢接口返回速度
-        sHighAccuracy: false, // 开启高精度定位
-        highAccuracyExpireTime: 3000, //高精度定位超时时间(ms)，指定时间内返回最高精度，该值3000ms以上高精度定位才有效果
-        success: function success(res) {console.log('成功获取位置信息', res);},
-        fail: function fail(error) {
-          console.log('获取当前位置失败', error);
-        },
-        complete: function complete(com) {
-          console.log('接口调用结束的回调函数（调用成功、失败都会执行）', com);
+var _default = { data: function data() {return { isLogin: false, src: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-b6eae3250bb62fadb3d2527f466cf033_b.jpg&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627549727&t=e41792f8c8229ece547548781156b385' };}, onLoad: function onLoad() {this.getLocation(), this.getRecorderManager();uni.showShareMenu({ withShareTicket: true });}, methods: { requestLogin: function requestLogin(code) {var param = { code: code };_drama.default.login(params).then(function (res) {console.log(res);});commonApi.login(param).then(function (res) {});}, logOut: function logOut() {this.$store.commit("LOGOUT");uni.reLaunch({
+        url: '/pages/indexs/index' });
+
+    },
+    getLocation: function getLocation() {
+      uni.authorize({
+        scope: 'scope.userLocation',
+        success: function success() {
+          uni.getLocation({
+            success: function success(res) {
+              console.log('成功获取位置信息', res);
+            },
+            fail: function fail(error) {
+              console.log('获取当前位置失败', error);
+            },
+            complete: function complete(com) {
+              console.log('接口调用结束的回调函数（调用成功、失败都会执行）', com);
+            } });
+
         } });
 
     },
-    getUserInfo: function getUserInfo() {var _this = this;
-      uni.getSetting({
-        success: function success(res) {
-          if (!res.authSetting['scope.userInfo']) {
-            console.log('未授权');
-            uni.authorize({
-              scope: "scope.userInfo",
-              fail: function fail(res) {
-                console.log(res);
-              },
-              success: function success() {
-                this.logIn();
-              } });
+    getRecorderManager: function getRecorderManager() {
+      uni.authorize({
+        scope: 'scope.record',
+        success: function success() {
+          uni.getRecorderManager({
+            success: function success(res) {
+              console.log('成功获取录音功能', res);
+            },
+            fail: function fail(error) {
+              console.log('获取录音功能失败', error);
+            },
+            complete: function complete(com) {
+              console.log('接口调用结束的回调函数（调用成功、失败都会执行）', com);
+            } });
 
-          } else {
-            _this.logIn();
-          }
         } });
 
+    },
+    getUserInfo: function getUserInfo() {
+      console.log(123);
+      uni.authorize({
+        scope: 'scope.userInfo',
+        success: function success() {var _this = this;
+          uni.getUserInfo({
+            success: function success(res) {
+              if (!res.authSetting['scope.userInfo']) {
+                console.log('未授权');
+                uni.authorize({
+                  scope: "scope.userInfo",
+                  fail: function fail(res) {
+                    console.log(res);
+                  },
+                  success: function success() {
+                    this.logIn();
+                  } });
+
+              } else {
+                _this.logIn();
+              }
+            } });
+
+        } });
+
+      // uni.getSetting()
     },
     // getUserInfo(e){
     // 	let userInfo = e.detail.userInfo

@@ -28,8 +28,14 @@
     ]
   },
   "permission": {
+    "scope.userInfo": {
+      "desc": "用户信息"
+    },
     "scope.userLocation": {
       "desc": "你的位置信息"
+    },
+    "scope.record": {
+      "desc": "你的录音功能"
     }
   },
   "usingComponents": {}
