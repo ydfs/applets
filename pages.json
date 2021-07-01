@@ -4,9 +4,9 @@
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/my/my",
+			"path": "pages/show/show",
 			"style": {
-				"navigationBarTitleText": "我的"
+				"navigationBarTitleText": "剧本内容"
 			}
 		},
 		{
@@ -16,12 +16,13 @@
 			}
 		},
 		{
-			"path": "pages/show/show",
+			"path": "pages/my/my",
 			"style": {
-				"navigationBarTitleText": "剧本内容"
+				"navigationBarTitleText": "我的"
 			}
 		}
 		
+
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -41,12 +42,12 @@
 		"list": [{
 			"pagePath": "pages/index/index",
 			"iconPath": "static/homePage.png",
-			"selectedIconPath":"static/homePage-active.png",
+			"selectedIconPath": "static/homePage-active.png",
 			"text": "剧本圈"
 		}, {
 			"pagePath": "pages/my/my",
-			"iconPath":"static/my.png",
-			"selectedIconPath":"static/my-active.png",
+			"iconPath": "static/my.png",
+			"selectedIconPath": "static/my-active.png",
 			"text": "我的"
 		}]
 	}

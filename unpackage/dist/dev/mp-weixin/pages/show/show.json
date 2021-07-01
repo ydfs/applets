@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "剧本内容",
-  "usingComponents": {}
+  "usingComponents": {
+    "u-button": "/node-modules/uview-ui/components/u-button/u-button"
+  }
 }

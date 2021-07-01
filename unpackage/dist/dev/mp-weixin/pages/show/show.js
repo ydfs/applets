@@ -93,6 +93,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
+try {
+  components = {
+    uButton: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-button/u-button */ "node-modules/uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! uview-ui/components/u-button/u-button.vue */ 54))
+    }
+  }
+} catch (e) {
+  if (
+    e.message.indexOf("Cannot find module") !== -1 &&
+    e.message.indexOf(".vue") !== -1
+  ) {
+    console.error(e.message)
+    console.error("1. 排查组件名称拼写是否正确")
+    console.error(
+      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
+    )
+    console.error(
+      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
+    )
+  } else {
+    throw e
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -139,7 +162,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
 
 
 
@@ -170,15 +194,18 @@ var _drama = _interopRequireDefault(__webpack_require__(/*! ../../globals/servic
 //
 //
 //
-var _default = { data: function data() {return { content: {}, words: { 3: "欢乐", 4: "悬疑", 6: "恐怖", 11: "未来", 12: "情感", 13: "科幻", 14: "推理", 15: "cp" } };
-  },
+//
+var _default = { data: function data() {return { content: {}, words: { 3: "欢乐", 4: "悬疑", 6: "恐怖", 11: "未来", 12: "情感", 13: "科幻", 14: "推理", 15: "cp" } };},
   onLoad: function onLoad(options) {
     this.getData(options.id);
+    uni.showShareMenu({
+      withShareTicket: true });
+
   },
   methods: {
     getData: function getData(id) {var _this = this;
       console.log(id);
-      _drama.default.dramaDetails(id).
+      _drama.default.dramaDetails(3).
       then(function (res) {
         console.log(res);
         _this.content = res;
@@ -188,6 +215,7 @@ var _default = { data: function data() {return { content: {}, words: { 3: "欢�
       var word = this.words;
       return word[key];
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

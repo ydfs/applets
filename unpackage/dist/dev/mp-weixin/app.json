@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/my/my",
+    "pages/show/show",
     "pages/index/index",
-    "pages/show/show"
+    "pages/my/my"
   ],
   "subPackages": [],
   "window": {

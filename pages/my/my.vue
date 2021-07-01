@@ -5,7 +5,7 @@
 			<view v-if="isLogin" class="user-name">
 				{{ userInfo.nickName || '昵称'}}
 			</view>
-			<view v-else open-type="getUserInfo" @getuserinfo="getUserInfo" withCredentials="true" class="userName">
+			<view v-else @click="logIn" class="userName">
 				登录
 			</view>
 		</view>
@@ -19,7 +19,7 @@
 			</view>
 		</view>
 		<view>
-			<button class="loginBtn" type="default" open-type="getUserInfo" @click="getUserInfo"
+			<button class="loginBtn" type="default" open-type="getUserInfo" @getuserinfo="getUserInfo"
 				withCredentials="true">点击授权获取用户信息</button>
 		</view>
 	</u-cell-group>
@@ -36,7 +36,7 @@
 		},
 		onLoad() {
 			this.getLocation(),
-			this.getRecorderManager()
+			this.getRecorderManager(),
 			uni.showShareMenu({
 				withShareTicket: true
 			})

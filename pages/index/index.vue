@@ -24,7 +24,10 @@
 			};
 		},
 		onLoad(options) {
-			this.getData();
+			this.getData(),
+			uni.showShareMenu({
+				withShareTicket: true
+			})
 		},
 		// onShow() {
 		// 	this.getData();

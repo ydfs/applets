@@ -214,7 +214,7 @@ var _drama = _interopRequireDefault(__webpack_require__(/*! ../../globals/servic
 //
 //
 //
-var _default = { data: function data() {return { isLogin: false, src: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-b6eae3250bb62fadb3d2527f466cf033_b.jpg&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627549727&t=e41792f8c8229ece547548781156b385' };}, onLoad: function onLoad() {this.getLocation(), this.getRecorderManager();uni.showShareMenu({ withShareTicket: true });}, methods: { requestLogin: function requestLogin(code) {var param = { code: code };_drama.default.login(params).then(function (res) {console.log(res);});commonApi.login(param).then(function (res) {});}, logOut: function logOut() {this.$store.commit("LOGOUT");uni.reLaunch({
+var _default = { data: function data() {return { isLogin: false, src: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-b6eae3250bb62fadb3d2527f466cf033_b.jpg&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627549727&t=e41792f8c8229ece547548781156b385' };}, onLoad: function onLoad() {this.getLocation(), this.getRecorderManager(), uni.showShareMenu({ withShareTicket: true });}, methods: { requestLogin: function requestLogin(code) {var param = { code: code };_drama.default.login(params).then(function (res) {console.log(res);});commonApi.login(param).then(function (res) {});}, logOut: function logOut() {this.$store.commit("LOGOUT");uni.reLaunch({
         url: '/pages/indexs/index' });
 
     },

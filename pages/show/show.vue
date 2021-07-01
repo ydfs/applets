@@ -10,6 +10,7 @@
 				
 			</view>
 		</view>
+		<u-button>按钮</u-button>
 	</view>
 </template>
 
@@ -33,11 +34,14 @@
 		},
 		onLoad(options) {
 			this.getData(options.id);
+			uni.showShareMenu({
+				withShareTicket: true
+			})
 		},
 		methods: {
 			getData(id) {
 				console.log(id)
-				dramaContent.dramaDetails(id)
+				dramaContent.dramaDetails(3)
 					.then(res => {
 						console.log(res)
 						this.content = res

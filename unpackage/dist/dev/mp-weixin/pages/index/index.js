@@ -159,10 +159,13 @@ var _drama = _interopRequireDefault(__webpack_require__(/*! ../../globals/servic
 //
 //
 //
-var _default = { data: function data() {return { current: 0, topics: [], total: 0, pagination: "" };}, onLoad: function onLoad(options) {this.getData();}, // onShow() {
+var _default = { data: function data() {return { current: 0, topics: [], total: 0, pagination: "" };}, onLoad: function onLoad(options) {this.getData(), uni.showShareMenu({ withShareTicket: true });
+  },
+  // onShow() {
   // 	this.getData();
   // },
-  methods: { getData: function getData() {var _this = this;
+  methods: {
+    getData: function getData() {var _this = this;
       var params = {};
       _drama.default.dramaList(params).
       then(function (res) {
