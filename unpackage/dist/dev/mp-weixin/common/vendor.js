@@ -10789,7 +10789,7 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ./../request/api.js */
     return _wxrequest.default.get("".concat(_api.default.dramaList, "/").concat(id));
   },
   dramaComment: function dramaComment(id, _ref, created_at) {var content = _ref.content,parent_id = _ref.parent_id,cited_user_id = _ref.cited_user_id;
-    return _wxrequest.default.post("".concat(_api.default.dramaList, "/").concat(id), {
+    return _wxrequest.default.post("".concat(_api.default.dramaComment, "/").concat(id), {
       content: content,
       parent_id: parent_id,
       cited_user_id: cited_user_id,

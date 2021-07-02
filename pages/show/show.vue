@@ -12,7 +12,7 @@
 		</view>
 		<!-- <view class="comment-box">评论</view> -->
 		<view class="input-container">
-			<input class="inputComment" @confirm="handleComment" type="text" placeholder="发表你的看法" v-model="comment" />
+			<input class="inputComment" @confirm="handleComment" type="text" placeholder="发表你的看法" v-model="releaseContent" />
 			<view class="submit-btn" @click="handleComment">
 				发送
 			</view>
@@ -58,9 +58,9 @@
 			return {
 				content: {},
 				commentList: [],
-				comment: '',
-				articleId: '',
-				id: '',
+				releaseContent: '',
+				id: '3',
+				//articleId: '',
 				words: {
 					3: "欢乐",
 					4: "悬疑",
@@ -100,26 +100,24 @@
 				}
 			},
 			// 发表评论
-			async handleComment() {
-				if (!this.comment) {
+			handleComment() {
+				if (!this.releaseContent) {
 					uni.showToast({
 						title: '请输入评论内容',
 						icon: 'none'
 					})
 					return
 				}
-				dramaContent.dramaComment(id, {
-					id: this.id,
-					content: this.comment
+				dramaContent.dramaComment(3, {
+					content: this.releaseContent,
 				}).then(res => {
-					this.$message.success(res.msg);
-					this.comment = '';
+					this.releaseContent = "";
 					this.dramaDetails();
 				})
-				if (suc) {
-					//this.getCommentList(this.articleId)
-					this.comment = ''
-				}
+				// if (suc) {
+				// 	this.getCommentList(this.articleId)
+				// 	this.comment = ''
+				// }
 			},
 			// 评论列表
 			getComment() {
@@ -186,7 +184,7 @@
 			},
 			getData(id) {
 				console.log(id)
-				dramaContent.dramaDetails(3)
+				dramaContent.dramaDetails(id)
 					.then(res => {
 						console.log(res)
 						this.content = res

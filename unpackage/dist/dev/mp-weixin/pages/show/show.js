@@ -178,7 +178,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 19));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -232,15 +232,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _drama = _interopRequireDefault(__webpack_require__(/*! ../../globals/service/drama.js */ 103));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
+var _drama = _interopRequireDefault(__webpack_require__(/*! ../../globals/service/drama.js */ 103));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
 {
   data: function data() {
     return {
       content: {},
       commentList: [],
-      comment: '',
-      articleId: '',
-      id: '',
+      releaseContent: '',
+      id: '3',
+      //articleId: '',
       words: {
         3: "欢乐",
         4: "悬疑",
@@ -280,26 +280,24 @@ var _drama = _interopRequireDefault(__webpack_require__(/*! ../../globals/servic
       }
     },
     // 发表评论
-    handleComment: function handleComment() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:if (
-                _this.comment) {_context.next = 3;break;}
-                uni.showToast({
-                  title: '请输入评论内容',
-                  icon: 'none' });return _context.abrupt("return");case 3:
+    handleComment: function handleComment() {var _this = this;
+      if (!this.releaseContent) {
+        uni.showToast({
+          title: '请输入评论内容',
+          icon: 'none' });
 
-
-
-                _drama.default.dramaComment(id, {
-                  id: _this.id,
-                  content: _this.comment }).
-                then(function (res) {
-                  _this.$message.success(res.msg);
-                  _this.comment = '';
-                  _this.dramaDetails();
-                });
-                if (suc) {
-                  //this.getCommentList(this.articleId)
-                  _this.comment = '';
-                }case 5:case "end":return _context.stop();}}}, _callee);}))();
+        return;
+      }
+      _drama.default.dramaComment(3, {
+        content: this.releaseContent }).
+      then(function (res) {
+        _this.releaseContent = "";
+        _this.dramaDetails();
+      });
+      // if (suc) {
+      // 	this.getCommentList(this.articleId)
+      // 	this.comment = ''
+      // }
     },
     // 评论列表
     getComment: function getComment() {var _ref;
@@ -366,7 +364,7 @@ var _drama = _interopRequireDefault(__webpack_require__(/*! ../../globals/servic
     },
     getData: function getData(id) {var _this2 = this;
       console.log(id);
-      _drama.default.dramaDetails(3).
+      _drama.default.dramaDetails(id).
       then(function (res) {
         console.log(res);
         _this2.content = res;

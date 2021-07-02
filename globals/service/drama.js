@@ -12,7 +12,7 @@ export default {
 		return wxRequest.get(`${API.dramaList}/${id}`);
 	},
 	dramaComment(id, { content, parent_id, cited_user_id }, created_at) {
-		return wxRequest.post(`${API.dramaList}/${id}`,  {
+		return wxRequest.post(`${API.dramaComment}/${id}`,  {
       content,
       parent_id,
       cited_user_id,
