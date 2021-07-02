@@ -11,8 +11,13 @@ export default {
 	dramaDetails(id) {
 		return wxRequest.get(`${API.dramaList}/${id}`);
 	},
-	dramaComment(id, params = {}) {
-		return wxRequest.post(`${API.dramaList}/${id}`, params);
+	dramaComment(id, { content, parent_id, cited_user_id }, created_at) {
+		return wxRequest.post(`${API.dramaList}/${id}`,  {
+      content,
+      parent_id,
+      cited_user_id,
+      created_at
+    });
 	},
 	commentDelete(id) {
 		return wxRequest.delete(API.commentDelete(id));

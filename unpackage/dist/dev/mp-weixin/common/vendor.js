@@ -10788,8 +10788,13 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ./../request/api.js */
   dramaDetails: function dramaDetails(id) {
     return _wxrequest.default.get("".concat(_api.default.dramaList, "/").concat(id));
   },
-  dramaComment: function dramaComment(id) {var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    return _wxrequest.default.post("".concat(_api.default.dramaList, "/").concat(id), params);
+  dramaComment: function dramaComment(id, _ref, created_at) {var content = _ref.content,parent_id = _ref.parent_id,cited_user_id = _ref.cited_user_id;
+    return _wxrequest.default.post("".concat(_api.default.dramaList, "/").concat(id), {
+      content: content,
+      parent_id: parent_id,
+      cited_user_id: cited_user_id,
+      created_at: created_at });
+
   },
   commentDelete: function commentDelete(id) {
     return _wxrequest.default.delete(_api.default.commentDelete(id));
