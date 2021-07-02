@@ -42,19 +42,19 @@
 			})
 		},
 		methods: {
-			requestLogin(code) {
-				let param = {
-					code
-				}
-				dramaLogin.login(params).then(res => {
-					console.log(res)
-				})
-				commonApi.login(param).then(res => {})
-			},
+			// requestLogin(code) {
+			// 	let param = {
+			// 		code
+			// 	}
+			// 	dramaLogin.login(params).then(res => {
+			// 		console.log(res)
+			// 	})
+			// 	commonApi.login(param).then(res => {})
+			// },
 			logOut: function() {
 				this.$store.commit("LOGOUT")
 				uni.reLaunch({
-					url: '/pages/indexs/index'
+					url: '/pages/index/index'
 				})
 			},
 			getLocation() {
@@ -125,12 +125,13 @@
 			// 	console.log(userInfo)
 			// },
 			logIn() {
-				uni.login({
-					provider: "weixin",
-					success(res) {
-						let code = res.code;
-						this.requestLogin(code)
-					}
+				uni.navigateTo({
+					url: '/pages/login/index'
+					// provider: "weixin",
+					// success(res) {
+					// 	let code = res.code;
+					// 	this.requestLogin(code)
+					// }
 				})
 			},
 		},

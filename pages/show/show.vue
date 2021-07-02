@@ -108,7 +108,7 @@
 					})
 					return
 				}
-				dramaContent.dramaComment(3, {
+				dramaContent.dramaComment('3', {
 					content: this.releaseContent,
 				}).then(res => {
 					this.releaseContent = "";

@@ -2,6 +2,21 @@ import wxRequest from "./../request/wxrequest.js";
 import API from "./../request/api.js";
 
 export default {
+	smsCode: ({ phone }) => {
+	    return wxRequest.post(API.smsCode, { phone });
+	},
+	smsRegister: ({ key, code, phone }) => {
+	    return wxRequest.post(API.smsRegister,
+	      {
+	        key,
+	        code,
+	        phone
+	      },
+	      {
+	        withCredentials: true
+	      }
+	    );
+	  },
 	dramaClassify() {
 		return wxRequest.get(API.dramaClassify);
 	},
@@ -11,13 +26,8 @@ export default {
 	dramaDetails(id) {
 		return wxRequest.get(`${API.dramaList}/${id}`);
 	},
-	dramaComment(id, { content, parent_id, cited_user_id }, created_at) {
-		return wxRequest.post(`${API.dramaComment}/${id}`,  {
-      content,
-      parent_id,
-      cited_user_id,
-      created_at
-    });
+	dramaComment(id, params) {
+		return wxRequest.post(API.dramaComment(id), params);
 	},
 	commentDelete(id) {
 		return wxRequest.delete(API.commentDelete(id));

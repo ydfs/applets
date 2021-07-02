@@ -10593,16 +10593,54 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* 43 */,
 /* 44 */,
 /* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */
+/* 46 */
+/*!**************************************************************************!*\
+  !*** /Users/yangshuhui/Desktop/Applets/applets/globals/service/drama.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _wxrequest = _interopRequireDefault(__webpack_require__(/*! ./../request/wxrequest.js */ 47));
+var _api = _interopRequireDefault(__webpack_require__(/*! ./../request/api.js */ 48));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
+
+{
+  smsCode: function smsCode(_ref) {var phone = _ref.phone;
+    return _wxrequest.default.post(_api.default.smsCode, { phone: phone });
+  },
+  smsRegister: function smsRegister(_ref2) {var key = _ref2.key,code = _ref2.code,phone = _ref2.phone;
+    return _wxrequest.default.post(_api.default.smsRegister,
+    {
+      key: key,
+      code: code,
+      phone: phone },
+
+    {
+      withCredentials: true });
+
+
+  },
+  dramaClassify: function dramaClassify() {
+    return _wxrequest.default.get(_api.default.dramaClassify);
+  },
+  dramaList: function dramaList() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    return _wxrequest.default.get(_api.default.dramaList, params);
+  },
+  dramaDetails: function dramaDetails(id) {
+    return _wxrequest.default.get("".concat(_api.default.dramaList, "/").concat(id));
+  },
+  dramaComment: function dramaComment(id, params) {
+    return _wxrequest.default.post(_api.default.dramaComment(id), params);
+  },
+  commentDelete: function commentDelete(id) {
+    return _wxrequest.default.delete(_api.default.commentDelete(id));
+  },
+  login: function login() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    return _wxrequest.default.post(_api.default.login, params);
+  } };exports.default = _default;
+
+/***/ }),
+/* 47 */
 /*!******************************************************************************!*\
   !*** /Users/yangshuhui/Desktop/Applets/applets/globals/request/wxrequest.js ***!
   \******************************************************************************/
@@ -10610,7 +10648,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 56));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _api = _interopRequireDefault(__webpack_require__(/*! ./api.js */ 48));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 var errorMessage = function errorMessage(error_code, message, successCallback) {
   uni.showModal({
@@ -10704,7 +10742,7 @@ var request = function request(method, url, data, header) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 56 */
+/* 48 */
 /*!************************************************************************!*\
   !*** /Users/yangshuhui/Desktop/Applets/applets/globals/request/api.js ***!
   \************************************************************************/
@@ -10714,94 +10752,13 @@ var request = function request(method, url, data, header) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var API_PREFIX = "http://api.jevescript.com";var _default =
 {
+  smsCode: "".concat(API_PREFIX, "/api/web/sms/code"),
+  smsRegister: "".concat(API_PREFIX, "/api/web/sms/register"),
   dramaClassify: "".concat(API_PREFIX, "/api/web/book-category"),
   dramaList: "".concat(API_PREFIX, "/api/web/books"),
   dramaComment: function dramaComment(id) {return "".concat(API_PREFIX, "/api/web/books/").concat(id, "/comment");},
   commentDelete: function commentDelete(id) {return "".concat(API_PREFIX, "/api/web/books/").concat(id, "/comment/").concat(id);},
   login: "".concat(API_PREFIX, "/api/login") };exports.default = _default;
-
-/***/ }),
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */,
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */
-/*!**************************************************************************!*\
-  !*** /Users/yangshuhui/Desktop/Applets/applets/globals/service/drama.js ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _wxrequest = _interopRequireDefault(__webpack_require__(/*! ./../request/wxrequest.js */ 55));
-var _api = _interopRequireDefault(__webpack_require__(/*! ./../request/api.js */ 56));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
-
-{
-  dramaClassify: function dramaClassify() {
-    return _wxrequest.default.get(_api.default.dramaClassify);
-  },
-  dramaList: function dramaList() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    return _wxrequest.default.get(_api.default.dramaList, params);
-  },
-  dramaDetails: function dramaDetails(id) {
-    return _wxrequest.default.get("".concat(_api.default.dramaList, "/").concat(id));
-  },
-  dramaComment: function dramaComment(id, _ref, created_at) {var content = _ref.content,parent_id = _ref.parent_id,cited_user_id = _ref.cited_user_id;
-    return _wxrequest.default.post("".concat(_api.default.dramaComment, "/").concat(id), {
-      content: content,
-      parent_id: parent_id,
-      cited_user_id: cited_user_id,
-      created_at: created_at });
-
-  },
-  commentDelete: function commentDelete(id) {
-    return _wxrequest.default.delete(_api.default.commentDelete(id));
-  },
-  login: function login() {var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    return _wxrequest.default.post(_api.default.login, params);
-  } };exports.default = _default;
 
 /***/ })
 ]]);
