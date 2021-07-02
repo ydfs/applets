@@ -11,8 +11,8 @@ export default {
 	dramaDetails(id) {
 		return wxRequest.get(`${API.dramaList}/${id}`);
 	},
-	dramaComment(params = {}) {
-		return wxRequest.post(API.dramaComment(id), params);
+	dramaComment(id, params = {}) {
+		return wxRequest.post(`${API.dramaList}/${id}`, params);
 	},
 	commentDelete(id) {
 		return wxRequest.delete(API.commentDelete(id));
