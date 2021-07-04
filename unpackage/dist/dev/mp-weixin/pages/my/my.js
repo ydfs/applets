@@ -187,34 +187,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _drama = _interopRequireDefault(__webpack_require__(/*! ../../globals/service/drama.js */ 46));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = { data: function data() {return { isLogin: false, src: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-b6eae3250bb62fadb3d2527f466cf033_b.jpg&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627549727&t=e41792f8c8229ece547548781156b385' };}, onLoad: function onLoad() {this.getLocation(), this.getRecorderManager(), uni.showShareMenu({ withShareTicket: true });}, methods: { // requestLogin(code) {
+var _drama = _interopRequireDefault(__webpack_require__(/*! ../../globals/service/drama.js */ 46));
+var _vuex = __webpack_require__(/*! vuex */ 112);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+{
+  data: function data() {
+    return {
+      //isLogin: false,
+      src: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-b6eae3250bb62fadb3d2527f466cf033_b.jpg&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627549727&t=e41792f8c8229ece547548781156b385' };
+
+  },
+  computed: _objectSpread({},
+  (0, _vuex.mapState)({
+    userInfo: function userInfo(state) {return state.userInfo;} })),
+
+
+  onLoad: function onLoad() {
+    this.getLocation(),
+    this.getRecorderManager(),
+    uni.showShareMenu({
+      withShareTicket: true });
+
+  },
+  methods: {
+    // requestLogin(code) {
     // 	let param = {
     // 		code
     // 	}
@@ -223,7 +218,18 @@ var _default = { data: function data() {return { isLogin: false, src: 'https://g
     // 	})
     // 	commonApi.login(param).then(res => {})
     // },
-    logOut: function logOut() {this.$store.commit("LOGOUT");uni.reLaunch({ url: '/pages/index/index' });}, getLocation: function getLocation() {uni.authorize({ scope: 'scope.userLocation', success: function success() {uni.getLocation({ success: function success(res) {
+    logOut: function logOut() {
+      this.$store.commit("LOGOUT");
+      uni.reLaunch({
+        url: '/pages/index/index' });
+
+    },
+    getLocation: function getLocation() {
+      uni.authorize({
+        scope: 'scope.userLocation',
+        success: function success() {
+          uni.getLocation({
+            success: function success(res) {
               console.log('成功获取位置信息', res);
             },
             fail: function fail(error) {

@@ -115,12 +115,12 @@
 
 			.title {
 				text-align: left;
-				font-size: 60rpx;
+				font-size: 55rpx;
 				font-weight: 500;
 				margin-bottom: 100rpx;
 			}
 
-			input {
+			.input {
 				text-align: left;
 				margin-bottom: 10rpx;
 				padding-bottom: 6rpx;

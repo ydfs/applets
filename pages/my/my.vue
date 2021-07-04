@@ -2,8 +2,8 @@
 	<u-cell-group>
 		<view class="img">
 			<u-avatar :src="src" size="150"></u-avatar>
-			<view v-if="isLogin" class="user-name">
-				{{ userInfo.nickName || '昵称'}}
+			<view v-if="!userInfo.id" class="user-name">
+				{{ userInfo.id || '昵称'}}
 			</view>
 			<view v-else @click="logIn" class="userName">
 				登录
@@ -27,13 +27,19 @@
 
 <script>
 	import dramaLogin from "../../globals/service/drama.js";
+	import { mapState } from "vuex";
 	export default {
 		data() {
 			return {
-				isLogin: false,
+				//isLogin: false,
 				src: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-b6eae3250bb62fadb3d2527f466cf033_b.jpg&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627549727&t=e41792f8c8229ece547548781156b385'
 			}
 		},
+		computed: {
+		    ...mapState({
+		      userInfo: state => state.userInfo
+		    })
+		  },
 		onLoad() {
 			this.getLocation(),
 			this.getRecorderManager(),
