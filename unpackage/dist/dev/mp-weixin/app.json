@@ -1,8 +1,7 @@
 {
   "pages": [
-    "pages/show/show",
-    "pages/show/reply",
     "pages/index/index",
+    "pages/show/show",
     "pages/my/my",
     "pages/login/index"
   ],

@@ -49,7 +49,14 @@
 				</view>
 				<view class="bottom">
 					{{ item.created_at.substring(0, 10) }}
-					<view @click="clickReply()" class="reply">回复</view>
+					<u-popup v-model="show" mode="bottom">
+						<view class="input-container-two">
+							<input class="inputComment" @confirm="handleComment" type="text" placeholder="回复你的看法"
+								v-model="replyContent" />
+							<view class="submit-btn" @click="handleReply">回复</view>
+						</view>
+					</u-popup>
+					<view @click="show = true" class="reply">回复</view>
 				</view>
 			</view>
 		</view>
@@ -64,7 +71,11 @@
 				content: {},
 				dramaDetail: {},
 				releaseContent: '',
-				id: '3',
+				show: false,
+				formLabelWidth: "80rpx",
+				replyContent: "",
+				parentId: 0,
+				userId: 0,
 				filterRoutesLength: 0,
 				//articleId: '',
 				words: {
@@ -84,15 +95,15 @@
 			uni.showShareMenu({
 				withShareTicket: true
 			});
-			this.dramaDetails();
+			this.dramaDetails(options.id);
 		},
 		onShow() {
 			//this.getCommentList(this.articleId)
 		},
 		methods: {
 			// 评论列表
-			dramaDetails() {
-				dramaContent.dramaDetails('3', {
+			dramaDetails(id) {
+				dramaContent.dramaDetails(id, {
 					page: this.currentPage
 				}).then(res => {
 					this.dramaDetail = res.comments;
@@ -124,11 +135,11 @@
 				return result;
 			},
 			// 跳转到全部回复
-			toAllReply() {
-				uni.navigateTo({
-					url: '/pages/show/reply'
-				});
-			},
+			// toAllReply(id) {
+			// 	uni.navigateTo({
+			// 		url: '/pages/show/reply?id=' + id,
+			// 	});
+			// },
 			// 点赞
 			getLike(index) {
 				this.dramaDetail[index].isLike = !this.dramaDetail[index].isLike;
@@ -147,17 +158,39 @@
 					})
 					return
 				}
-				dramaContent.dramaComment('3', {
+				dramaContent.dramaComment(id, {
 					content: this.releaseContent,
 				}).then(res => {
 					this.releaseContent = "";
 				})
 			},
-			
+			clickReply(parentId, userId) {
+				this.dialogFormVisible = true;
+				this.parentId = parentId;
+				this.userId = userId;
+			},
+			// 发表2级评论
+			handleReply() {
+				if (!this.replyContent) {
+					uni.showToast({
+						title: '请输入评论内容',
+						icon: 'none'
+					})
+					return
+				}
+				dramaContent.dramaComment(id, {
+					content: this.replyContent,
+				}).then(res => {
+					this.replyContent = "";
+					this.show = false;
+					this.dramaDetails();
+				})
+			},
+
 			//剧本内容
 			getData(id) {
 				console.log(id)
-				dramaContent.dramaDetails(3)
+				dramaContent.dramaDetails(id)
 					.then(res => {
 						console.log(res)
 						this.content = res
@@ -316,6 +349,15 @@
 				display: flex;
 				font-size: 24rpx;
 				color: #9a9a9a;
+
+				.input-container-two {
+					margin: 32px;
+					width: 80%;
+					height: 80rpx;
+					border: 1rpx solid rgb(229, 229, 229);
+					border-radius: 15rpx;
+					position: relative;
+				}
 
 				.reply {
 					color: #5677fc;
