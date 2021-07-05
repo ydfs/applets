@@ -42,14 +42,13 @@
 						<view class="username">{{ child.user.nickname }}</view>
 						<view class="text">{{ child.content }}</view>
 					</view>
-		<!-- 			<view>{{ child.created_at.substring(0, 10) }}</view> -->
-					<view class="all-reply" @tap="toAllReply" v-if="res.replyList != undefined">
+					<view class="all-reply" @tap="toAllReply" v-if="child != undefined">
 						共{{ child.length }}条回复
 						<u-icon class="more" name="arrow-right" :size="26"></u-icon>
 					</view>
 				</view>
 				<view class="bottom">
-					{{ res }}
+					{{ item.created_at.substring(0, 10) }}
 					<view @click="clickReply()" class="reply">回复</view>
 				</view>
 			</view>
@@ -64,7 +63,6 @@
 			return {
 				content: {},
 				dramaDetail: {},
-				//commentList: [],
 				releaseContent: '',
 				id: '3',
 				filterRoutesLength: 0,
@@ -86,7 +84,6 @@
 			uni.showShareMenu({
 				withShareTicket: true
 			});
-			//this.getComment();
 			this.dramaDetails();
 		},
 		onShow() {
@@ -157,11 +154,6 @@
 				})
 			},
 			
-			// getComment() {
-			// 	this.dramaDetail = [{
-			// 		date: 'child.created_at.substring(0, 10)',
-			// 	}];
-			// },
 			//剧本内容
 			getData(id) {
 				console.log(id)

@@ -121,11 +121,23 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var m0 = _vm.typeWord(_vm.content.category_id)
+
+  var l0 = _vm.__map(_vm.dramaDetail, function(item, __i0__) {
+    var $orig = _vm.__get_orig(item)
+
+    var g0 = item.created_at.substring(0, 10)
+    return {
+      $orig: $orig,
+      g0: g0
+    }
+  })
+
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
-        m0: m0
+        m0: m0,
+        l0: l0
       }
     }
   )
@@ -163,7 +175,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
 
 
 
@@ -280,13 +291,11 @@ var _drama = _interopRequireDefault(__webpack_require__(/*! ../../globals/servic
 //
 //
 //
-//
-var _default = { data: function data() {return { content: {}, dramaDetail: {}, //commentList: [],
-      releaseContent: '', id: '3', filterRoutesLength: 0, //articleId: '',
-      words: { 3: "欢乐", 4: "悬疑", 6: "恐怖", 11: "未来", 12: "情感", 13: "科幻", 14: "推理", 15: "cp" } };}, onLoad: function onLoad(options) {this.getData(options.id);uni.showShareMenu({ withShareTicket: true }); //this.getComment();
-    this.dramaDetails();}, onShow: function onShow() {//this.getCommentList(this.articleId)
+var _default = { data: function data() {return { content: {}, dramaDetail: {}, releaseContent: '', id: '3', filterRoutesLength: 0, //articleId: '',
+      words: { 3: "欢乐", 4: "悬疑", 6: "恐怖", 11: "未来", 12: "情感", 13: "科幻", 14: "推理", 15: "cp" } };}, onLoad: function onLoad(options) {this.getData(options.id);uni.showShareMenu({ withShareTicket: true });this.dramaDetails();}, onShow: function onShow() {//this.getCommentList(this.articleId)
   }, methods: { // 评论列表
-    dramaDetails: function dramaDetails() {var _this = this;_drama.default.dramaDetails('3', { page: this.currentPage }).then(function (res) {_this.dramaDetail = res.comments;console.log(_this.dramaDetail);_this.filterRoutes = _this.filterNavigator(res.comments);var filterRoutesLength = 0;_this.filterRoutes.forEach(function (item) {if (item.children) filterRoutesLength += item.children.length;});_this.filterRoutesLength = filterRoutesLength += _this.filterRoutes.length;});}, filterNavigator: function filterNavigator(array) {var _this2 = this;var result = [];array.forEach(function (comments) {if (comments.content && comments.id) {var item = { content: comments.content, id: comments.id, user: comments.user };if (comments.children && comments.children.length) {item.children = _this2.filterNavigator(comments.children);}result.push(item);}
+    dramaDetails: function dramaDetails() {var _this = this;_drama.default.dramaDetails('3', { page: this.currentPage }).then(function (res) {_this.dramaDetail = res.comments;console.log(_this.dramaDetail);_this.filterRoutes = _this.filterNavigator(res.comments);var filterRoutesLength = 0;_this.filterRoutes.forEach(function (item) {if (item.children) filterRoutesLength += item.children.length;});_this.filterRoutesLength = filterRoutesLength += _this.filterRoutes.length;});}, filterNavigator: function filterNavigator(array) {var _this2 = this;var result = [];array.forEach(function (comments) {if (comments.content && comments.id) {var item = { content: comments.content, id: comments.id, user: comments.user };if (comments.children && comments.children.length) {item.children = _this2.filterNavigator(comments.children);}result.push(item);
+        }
       });
       return result;
     },
@@ -321,11 +330,6 @@ var _default = { data: function data() {return { content: {}, dramaDetail: {}, /
       });
     },
 
-    // getComment() {
-    // 	this.dramaDetail = [{
-    // 		date: 'child.created_at.substring(0, 10)',
-    // 	}];
-    // },
     //剧本内容
     getData: function getData(id) {var _this4 = this;
       console.log(id);
