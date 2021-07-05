@@ -14,7 +14,7 @@
 		<view class="input-container">
 			<input class="inputComment" @confirm="handleComment" type="text" placeholder="发表你的看法"
 				v-model="releaseContent" />
-			<view class="submit-btn" @click="handleComment">
+			<view class="submit-btn" @click="handleComment(id)">
 				发送
 			</view>
 		</view>
@@ -51,12 +51,12 @@
 					{{ item.created_at.substring(0, 10) }}
 					<u-popup v-model="show" mode="bottom">
 						<view class="input-container-two">
-							<input class="inputComment" @confirm="handleComment" type="text" placeholder="回复你的看法"
+							<input class="inputComment" @confirm="handleReply" type="text" placeholder="回复你的看法"
 								v-model="replyContent" />
 							<view class="submit-btn" @click="handleReply">回复</view>
 						</view>
 					</u-popup>
-					<view @click="show = true" class="reply">回复</view>
+					<view @click="clickReply" class="reply">回复</view>
 				</view>
 			</view>
 		</view>
@@ -140,6 +140,7 @@
 			// 		url: '/pages/show/reply?id=' + id,
 			// 	});
 			// },
+			
 			// 点赞
 			getLike(index) {
 				this.dramaDetail[index].isLike = !this.dramaDetail[index].isLike;
@@ -150,7 +151,7 @@
 				}
 			},
 			// 发表评论
-			handleComment() {
+			handleComment(id) {
 				if (!this.releaseContent) {
 					uni.showToast({
 						title: '请输入评论内容',
@@ -164,22 +165,24 @@
 					this.releaseContent = "";
 				})
 			},
-			clickReply(parentId, userId) {
-				this.dialogFormVisible = true;
-				this.parentId = parentId;
-				this.userId = userId;
+			clickReply() {
+				this.show = true;
+				// this.parentId = parentId;
+				// this.userId = userId;
 			},
 			// 发表2级评论
 			handleReply() {
 				if (!this.replyContent) {
 					uni.showToast({
-						title: '请输入评论内容',
+						title: '请输入回复内容',
 						icon: 'none'
 					})
 					return
 				}
 				dramaContent.dramaComment(id, {
 					content: this.replyContent,
+					parent_id: this.parentId,
+					cited_user_id: this.userId
 				}).then(res => {
 					this.replyContent = "";
 					this.show = false;
