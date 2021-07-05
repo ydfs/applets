@@ -308,10 +308,12 @@ var _drama = _interopRequireDefault(__webpack_require__(/*! ../../globals/servic
 //
 //
 //
-var _default = { data: function data() {return { content: {}, dramaDetail: {}, releaseContent: '', show: false, formLabelWidth: "80rpx", replyContent: "", parentId: 0, userId: 0, filterRoutesLength: 0, //articleId: '',
-      words: { 3: "欢乐", 4: "悬疑", 6: "恐怖", 11: "未来", 12: "情感", 13: "科幻", 14: "推理", 15: "cp" } };}, onLoad: function onLoad(options) {this.getData(options.id);uni.showShareMenu({ withShareTicket: true });this.dramaDetails(options.id);}, onShow: function onShow() {//this.getCommentList(this.articleId)
+var _default = { data: function data() {return { content: {}, dramaDetail: {}, releaseContent: '', show: false, //formLabelWidth: "80rpx",
+      replyContent: "", parentId: 0, userId: 0, filterRoutesLength: 0, dramaId: null, //articleId: '',
+      words: { 3: "欢乐", 4: "悬疑", 6: "恐怖", 11: "未来", 12: "情感", 13: "科幻", 14: "推理", 15: "cp" } };}, onLoad: function onLoad(options) {this.dramaId = options.id;this.getData(options.id);uni.showShareMenu({ withShareTicket: true });this.dramaDetails(options.id);}, onShow: function onShow() {//this.getCommentList(this.articleId)
   }, methods: { // 评论列表
-    dramaDetails: function dramaDetails(id) {var _this = this;_drama.default.dramaDetails(id, { page: this.currentPage }).then(function (res) {_this.dramaDetail = res.comments;console.log(_this.dramaDetail);_this.filterRoutes = _this.filterNavigator(res.comments);var filterRoutesLength = 0;_this.filterRoutes.forEach(function (item) {if (item.children) filterRoutesLength += item.children.length;});_this.filterRoutesLength = filterRoutesLength += _this.filterRoutes.length;});}, filterNavigator: function filterNavigator(array) {var _this2 = this;var result = [];array.forEach(function (comments) {if (comments.content && comments.id) {var item = { content: comments.content, id: comments.id, user: comments.user };if (comments.children && comments.children.length) {item.children = _this2.filterNavigator(comments.children);}result.push(item);}});return result;
+    dramaDetails: function dramaDetails(id) {var _this = this;_drama.default.dramaDetails(id, { page: this.currentPage }).then(function (res) {_this.dramaDetail = res.comments;console.log(_this.dramaDetail);_this.filterRoutes = _this.filterNavigator(res.comments);var filterRoutesLength = 0;_this.filterRoutes.forEach(function (item) {if (item.children) filterRoutesLength += item.children.length;});_this.filterRoutesLength = filterRoutesLength += _this.filterRoutes.length;});}, filterNavigator: function filterNavigator(array) {var _this2 = this;var result = [];array.forEach(function (comments) {if (comments.content && comments.id) {var item = { content: comments.content, id: comments.id, user: comments.user };if (comments.children && comments.children.length) {item.children = _this2.filterNavigator(comments.children);}result.push(item);}});
+      return result;
     },
     // 跳转到全部回复
     // toAllReply(id) {
@@ -330,7 +332,7 @@ var _default = { data: function data() {return { content: {}, dramaDetail: {}, r
       }
     },
     // 发表评论
-    handleComment: function handleComment(id) {var _this3 = this;
+    handleComment: function handleComment() {var _this3 = this;
       if (!this.releaseContent) {
         uni.showToast({
           title: '请输入评论内容',
@@ -338,16 +340,16 @@ var _default = { data: function data() {return { content: {}, dramaDetail: {}, r
 
         return;
       }
-      _drama.default.dramaComment(id, {
+      _drama.default.dramaComment(this.dramaId, {
         content: this.releaseContent }).
       then(function (res) {
         _this3.releaseContent = "";
       });
     },
-    clickReply: function clickReply() {
+    clickReply: function clickReply(parentId, userId) {
       this.show = true;
-      // this.parentId = parentId;
-      // this.userId = userId;
+      parentId: this.parentId;
+      userId: this.userId;
     },
     // 发表2级评论
     handleReply: function handleReply() {var _this4 = this;
@@ -358,7 +360,7 @@ var _default = { data: function data() {return { content: {}, dramaDetail: {}, r
 
         return;
       }
-      _drama.default.dramaComment(id, {
+      _drama.default.dramaComment(this.dramaId, {
         content: this.replyContent,
         parent_id: this.parentId,
         cited_user_id: this.userId }).

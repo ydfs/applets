@@ -14,7 +14,7 @@
 		<view class="input-container">
 			<input class="inputComment" @confirm="handleComment" type="text" placeholder="发表你的看法"
 				v-model="releaseContent" />
-			<view class="submit-btn" @click="handleComment(id)">
+			<view class="submit-btn" @click="handleComment">
 				发送
 			</view>
 		</view>
@@ -53,10 +53,10 @@
 						<view class="input-container-two">
 							<input class="inputComment" @confirm="handleReply" type="text" placeholder="回复你的看法"
 								v-model="replyContent" />
-							<view class="submit-btn" @click="handleReply">回复</view>
+							<view class="submit-btn" @click="handleReply">里回复</view>
 						</view>
 					</u-popup>
-					<view @click="clickReply" class="reply">回复</view>
+					<view @click="clickReply(item.id, item.user.id)" class="reply">回复</view>
 				</view>
 			</view>
 		</view>
@@ -72,11 +72,12 @@
 				dramaDetail: {},
 				releaseContent: '',
 				show: false,
-				formLabelWidth: "80rpx",
+				//formLabelWidth: "80rpx",
 				replyContent: "",
 				parentId: 0,
 				userId: 0,
 				filterRoutesLength: 0,
+				dramaId: null,
 				//articleId: '',
 				words: {
 					3: "欢乐",
@@ -91,6 +92,7 @@
 			}
 		},
 		onLoad(options) {
+			this.dramaId = options.id;
 			this.getData(options.id);
 			uni.showShareMenu({
 				withShareTicket: true
@@ -151,7 +153,7 @@
 				}
 			},
 			// 发表评论
-			handleComment(id) {
+			handleComment() {
 				if (!this.releaseContent) {
 					uni.showToast({
 						title: '请输入评论内容',
@@ -159,16 +161,16 @@
 					})
 					return
 				}
-				dramaContent.dramaComment(id, {
+				dramaContent.dramaComment(this.dramaId, {
 					content: this.releaseContent,
 				}).then(res => {
 					this.releaseContent = "";
 				})
 			},
-			clickReply() {
+			clickReply(parentId, userId) {
 				this.show = true;
-				// this.parentId = parentId;
-				// this.userId = userId;
+				parentId: this.parentId;
+				userId:  this.userId;
 			},
 			// 发表2级评论
 			handleReply() {
@@ -179,7 +181,7 @@
 					})
 					return
 				}
-				dramaContent.dramaComment(id, {
+				dramaContent.dramaComment(this.dramaId, {
 					content: this.replyContent,
 					parent_id: this.parentId,
 					cited_user_id: this.userId
