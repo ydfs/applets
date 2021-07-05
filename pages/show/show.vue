@@ -12,18 +12,23 @@
 		</view>
 		<!-- <view class="comment-box">评论</view> -->
 		<view class="input-container">
-			<input class="inputComment" @confirm="handleComment" type="text" placeholder="发表你的看法" v-model="releaseContent" />
+			<input class="inputComment" @confirm="handleComment" type="text" placeholder="发表你的看法"
+				v-model="releaseContent" />
 			<view class="submit-btn" @click="handleComment">
 				发送
 			</view>
 		</view>
-		<view class="comment" v-for="(res, index) in commentList" :key="res.id">
+		<view class="item-number">
+			<h3 style="padding-left: 5px;">共{{ filterRoutesLength }}条评论</h3>
+		</view>
+		<view class="comment" v-for="item in dramaDetail" :key="item.index">
 			<view class="left">
-				<image :src="res.url" mode="aspectFill"></image>
+				<image class="head-portrait" :src="item.user.avatar_url" mode="aspectFill">
+				</image>
 			</view>
 			<view class="right">
 				<view class="top">
-					<view class="name">{{ res.name }}</view>
+					<view class="name">{{ item.user.nickname }}</view>
 					<view class="like" :class="{ highlight: res.isLike }">
 						<view class="num">{{ res.likeNum }}</view>
 						<u-icon v-if="!res.isLike" name="thumb-up" :size="30" color="#9a9a9a" @click="getLike(index)">
@@ -31,19 +36,20 @@
 						<u-icon v-if="res.isLike" name="thumb-up-fill" :size="30" @click="getLike(index)"></u-icon>
 					</view>
 				</view>
-				<view class="content">{{ res.contentText }}</view>
+				<view class="content">{{ item.content }}</view>
 				<view class="reply-box">
-					<view class="item" v-for="(item, index) in res.replyList" :key="item.index">
-						<view class="username">{{ item.name }}</view>
-						<view class="text">{{ item.contentStr }}</view>
+					<view class="item" v-for="child in item.children" :key="child.index">
+						<view class="username">{{ child.user.nickname }}</view>
+						<view class="text">{{ child.content }}</view>
 					</view>
+		<!-- 			<view>{{ child.created_at.substring(0, 10) }}</view> -->
 					<view class="all-reply" @tap="toAllReply" v-if="res.replyList != undefined">
-						共{{ res.allReply }}条回复
+						共{{ child.length }}条回复
 						<u-icon class="more" name="arrow-right" :size="26"></u-icon>
 					</view>
 				</view>
 				<view class="bottom">
-					{{ res.date }}
+					{{ res }}
 					<view @click="clickReply()" class="reply">回复</view>
 				</view>
 			</view>
@@ -57,9 +63,11 @@
 		data() {
 			return {
 				content: {},
-				commentList: [],
+				dramaDetail: {},
+				//commentList: [],
 				releaseContent: '',
 				id: '3',
+				filterRoutesLength: 0,
 				//articleId: '',
 				words: {
 					3: "欢乐",
@@ -78,12 +86,46 @@
 			uni.showShareMenu({
 				withShareTicket: true
 			});
-			this.getComment();
+			//this.getComment();
+			this.dramaDetails();
 		},
 		onShow() {
 			//this.getCommentList(this.articleId)
 		},
 		methods: {
+			// 评论列表
+			dramaDetails() {
+				dramaContent.dramaDetails('3', {
+					page: this.currentPage
+				}).then(res => {
+					this.dramaDetail = res.comments;
+					console.log(this.dramaDetail);
+					this.filterRoutes = this.filterNavigator(res.comments);
+					let filterRoutesLength = 0;
+					this.filterRoutes.forEach(item => {
+						if (item.children) filterRoutesLength += item.children.length;
+					});
+					this.filterRoutesLength = filterRoutesLength += this.filterRoutes
+						.length;
+				});
+			},
+			filterNavigator(array) {
+				let result = [];
+				array.forEach(comments => {
+					if (comments.content && comments.id) {
+						let item = {
+							content: comments.content,
+							id: comments.id,
+							user: comments.user
+						};
+						if (comments.children && comments.children.length) {
+							item.children = this.filterNavigator(comments.children);
+						}
+						result.push(item);
+					}
+				});
+				return result;
+			},
 			// 跳转到全部回复
 			toAllReply() {
 				uni.navigateTo({
@@ -112,79 +154,18 @@
 					content: this.releaseContent,
 				}).then(res => {
 					this.releaseContent = "";
-					this.dramaDetails();
 				})
-				// if (suc) {
-				// 	this.getCommentList(this.articleId)
-				// 	this.comment = ''
-				// }
 			},
-			// 评论列表
-			getComment() {
-				this.commentList = [{
-						id: 1,
-						name: '叶轻眉',
-						date: '12-25 18:58',
-						contentText: '我不信伊朗会没有后续反应，美国肯定会为今天的事情付出代价的',
-						url: 'https://cdn.uviewui.com/uview/template/SmilingDog.jpg',
-						allReply: 12,
-						likeNum: 33,
-						isLike: false,
-						replyList: [{
-								name: 'uview',
-								contentStr: 'uview是基于uniapp的一个UI框架，代码优美简洁，宇宙超级无敌彩虹旋转好用，用它！'
-							},
-							{
-								name: '粘粘',
-								contentStr: '今天吃什么，明天吃什么，晚上吃什么，我只是一只小猫咪为什么要烦恼这么多'
-							}
-						]
-					},
-					{
-						id: 2,
-						name: '叶轻眉1',
-						date: '01-25 13:58',
-						contentText: '我不信伊朗会没有后续反应，美国肯定会为今天的事情付出代价的',
-						allReply: 0,
-						likeNum: 11,
-						isLike: false,
-						url: 'https://cdn.uviewui.com/uview/template/niannian.jpg',
-					},
-					{
-						id: 3,
-						name: '叶轻眉2',
-						date: '03-25 13:58',
-						contentText: '我不信伊朗会没有后续反应，美国肯定会为今天的事情付出代价的',
-						allReply: 0,
-						likeNum: 21,
-						isLike: false,
-						allReply: 2,
-						url: '../../../static/logo.png',
-						replyList: [{
-								name: 'uview',
-								contentStr: 'uview是基于uniapp的一个UI框架，代码优美简洁，宇宙超级无敌彩虹旋转好用，用它！'
-							},
-							{
-								name: '豆包',
-								contentStr: '想吃冰糖葫芦粘豆包，但没钱5555.........'
-							}
-						]
-					},
-					{
-						id: 4,
-						name: '叶轻眉3',
-						date: '06-20 13:58',
-						contentText: '我不信伊朗会没有后续反应，美国肯定会为今天的事情付出代价的',
-						url: 'https://cdn.uviewui.com/uview/template/SmilingDog.jpg',
-						allReply: 0,
-						likeNum: 150,
-						isLike: false
-					}
-				];
-			},
+			
+			// getComment() {
+			// 	this.dramaDetail = [{
+			// 		date: 'child.created_at.substring(0, 10)',
+			// 	}];
+			// },
+			//剧本内容
 			getData(id) {
 				console.log(id)
-				dramaContent.dramaDetails(id)
+				dramaContent.dramaDetails(3)
 					.then(res => {
 						console.log(res)
 						this.content = res
@@ -218,7 +199,8 @@
 	}
 
 	.input-container {
-		width: 334rpx;
+		margin: 20px 0;
+		width: 100%;
 		height: 76rpx;
 		border: 1rpx solid rgb(229, 229, 229);
 		border-radius: 15rpx;

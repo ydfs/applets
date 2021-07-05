@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/my/my",
-    "pages/login/index",
+    "pages/show/show",
     "pages/index/index",
-    "pages/show/show"
+    "pages/my/my",
+    "pages/login/index"
   ],
   "subPackages": [],
   "window": {

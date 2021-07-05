@@ -5,7 +5,6 @@
 			<view class="title">欢迎登录剧本杀</view>
 			<input class="u-border-bottom" type="number" v-model="formLabelAlign.phone" placeholder="请输入手机号" />
 			<view class="tips">未注册的手机号验证后自动创建剧本杀账号</view>
-			<!-- <button @tap="submit" :style="[inputStyle]" class="getCaptcha">获取短信验证码</button> -->
 			<view :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
 				<view label="验证码" prop="code" :rules="[{ required: true, message: '验证码不能为空' }]">
 					<view class="gain">
@@ -25,16 +24,6 @@
 			</view>
 		</view>
 		<view class="buttom">
-			<!-- 			<view class="loginType">
-				<view class="wechat item">
-					<view class="icon"><u-icon size="70" name="weixin-fill" color="rgb(83,194,64)"></u-icon></view>
-					微信
-				</view>
-				<view class="QQ item">
-					<view class="icon"><u-icon size="70" name="qq-fill" color="rgb(17,183,233)"></u-icon></view>
-					QQ
-				</view>
-			</view> -->
 			<view class="hint">
 				登录代表同意
 				<text class="link">剧本杀用户协议、隐私政策，</text>
@@ -58,16 +47,6 @@
 					code: "",
 					phone: ""
 				}
-			}
-		},
-		computed: {
-			inputStyle() {
-				let style = {};
-				if (this.formLabelAlign.code) {
-					style.color = "#fff";
-					style.backgroundColor = this.$u.color['warning'];
-				}
-				return style;
 			}
 		},
 		methods: {
@@ -95,7 +74,13 @@
 						code: this.formLabelAlign.code,
 						phone: this.formLabelAlign.phone
 					})
-					.then(() => {
+					.then((res) => {
+						console.log(res, 'res')
+						let userInfo = Object.assign({}, res.userInfo, {
+							token: res.token
+						})
+						console.log(userInfo, 'userInfo')
+						uni.setStorageSync('userInfo', userInfo)
 						uni.switchTab({
 							url: '/pages/my/my'
 						})

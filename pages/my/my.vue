@@ -2,8 +2,8 @@
 	<u-cell-group>
 		<view class="img">
 			<u-avatar :src="src" size="150"></u-avatar>
-			<view v-if="!userInfo.id" class="user-name">
-				{{ userInfo.id || '昵称'}}
+			<view v-if="userInfo.nickname" class="user-name">
+				{{ userInfo.nickname || '昵称'}}
 			</view>
 			<view v-else @click="logIn" class="userName">
 				登录
@@ -27,40 +27,37 @@
 
 <script>
 	import dramaLogin from "../../globals/service/drama.js";
-	import { mapState } from "vuex";
 	export default {
 		data() {
 			return {
-				//isLogin: false,
+				userInfo: {},
 				src: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic4.zhimg.com%2Fv2-b6eae3250bb62fadb3d2527f466cf033_b.jpg&refer=http%3A%2F%2Fpic4.zhimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627549727&t=e41792f8c8229ece547548781156b385'
 			}
 		},
-		computed: {
-		    ...mapState({
-		      userInfo: state => state.userInfo
-		    })
-		  },
+
 		onLoad() {
 			this.getLocation(),
-			this.getRecorderManager(),
-			uni.showShareMenu({
-				withShareTicket: true
-			})
+				uni.showShareMenu({
+					withShareTicket: true
+				}),
+				this.userInfo = uni.getStorageSync('userInfo') //存储userInfo
 		},
 		methods: {
-			// requestLogin(code) {
-			// 	let param = {
-			// 		code
-			// 	}
-			// 	dramaLogin.login(params).then(res => {
-			// 		console.log(res)
-			// 	})
-			// 	commonApi.login(param).then(res => {})
-			// },
 			logOut: function() {
-				this.$store.commit("LOGOUT")
-				uni.reLaunch({
-					url: '/pages/index/index'
+				uni.showModal({
+					title: '提示',
+					content: '您确定要退出登录吗',
+					success: function(res) {
+						if (res.confirm) { //这里是点击了确定以后
+							console.log('用户点击确定')
+							uni.setStorageSync('userInfo', {}); //将userInfo置空
+							uni.redirectTo({
+								url: '/pages/my/my', //跳去登录页
+							})
+						} else { //这里是点击了取消以后
+							console.log('用户点击取消')
+						}
+					}
 				})
 			},
 			getLocation() {
@@ -73,24 +70,6 @@
 							},
 							fail: function(error) {
 								console.log('获取当前位置失败', error)
-							},
-							complete: function(com) {
-								console.log('接口调用结束的回调函数（调用成功、失败都会执行）', com)
-							}
-						});
-					}
-				})
-			},
-			getRecorderManager() {
-				uni.authorize({
-					scope: 'scope.record',
-					success() {
-						uni.getRecorderManager({
-							success: function(res) {
-								console.log('成功获取录音功能', res)
-							},
-							fail: function(error) {
-								console.log('获取录音功能失败', error)
 							},
 							complete: function(com) {
 								console.log('接口调用结束的回调函数（调用成功、失败都会执行）', com)
@@ -133,11 +112,6 @@
 			logIn() {
 				uni.navigateTo({
 					url: '/pages/login/index'
-					// provider: "weixin",
-					// success(res) {
-					// 	let code = res.code;
-					// 	this.requestLogin(code)
-					// }
 				})
 			},
 		},

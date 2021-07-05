@@ -16,8 +16,8 @@ const errorMessage = (error_code, message, successCallback) => {
 
 const interceptorsRequest = (method, url, data, header = {}) => {
   let params = { method, url, data, header };
-  let userInfoKey = `${API.MODE}_userInfo`;
-  let storageUserInfo = uni.getStorageSync(userInfoKey);
+ // Storage，获取数据
+  let storageUserInfo = uni.getStorageSync('userInfo');
   if (storageUserInfo) {
     header["Authorization"] = `Bearer ${storageUserInfo.token}`;
   }
