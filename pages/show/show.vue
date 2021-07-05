@@ -42,9 +42,9 @@
 						<view class="username">{{ child.user.nickname }}</view>
 						<view class="text">{{ child.content }}</view>
 					</view>
-					<view class="all-reply" @tap="toAllReply" v-if="child != undefined">
-						共{{ child.length }}条回复
-						<u-icon class="more" name="arrow-right" :size="26"></u-icon>
+					<view class="all-reply" @tap="toAllReply" v-if="item.children.length">
+						共{{ item.children.length }}条回复
+						<u-icon class="more" name="arrow-right" :size="26" v-if="item.children.length > 2"></u-icon>
 					</view>
 				</view>
 				<view class="bottom">
@@ -126,16 +126,16 @@
 			// 跳转到全部回复
 			toAllReply() {
 				uni.navigateTo({
-					url: '/pages/template/comment/reply'
+					url: '/pages/show/reply'
 				});
 			},
 			// 点赞
 			getLike(index) {
-				this.commentList[index].isLike = !this.commentList[index].isLike;
-				if (this.commentList[index].isLike == true) {
-					this.commentList[index].likeNum++;
+				this.dramaDetail[index].isLike = !this.dramaDetail[index].isLike;
+				if (this.dramaDetail[index].isLike == true) {
+					this.dramaDetail[index].likeNum++;
 				} else {
-					this.commentList[index].likeNum--;
+					this.dramaDetail[index].likeNum--;
 				}
 			},
 			// 发表评论
@@ -234,6 +234,7 @@
 	.comment {
 		display: flex;
 		padding: 30rpx;
+		border-bottom: 1px solid #e4e4e4;
 
 		.left {
 			image {

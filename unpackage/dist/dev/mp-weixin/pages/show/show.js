@@ -302,16 +302,16 @@ var _default = { data: function data() {return { content: {}, dramaDetail: {}, r
     // 跳转到全部回复
     toAllReply: function toAllReply() {
       uni.navigateTo({
-        url: '/pages/template/comment/reply' });
+        url: '/pages/show/reply' });
 
     },
     // 点赞
     getLike: function getLike(index) {
-      this.commentList[index].isLike = !this.commentList[index].isLike;
-      if (this.commentList[index].isLike == true) {
-        this.commentList[index].likeNum++;
+      this.dramaDetail[index].isLike = !this.dramaDetail[index].isLike;
+      if (this.dramaDetail[index].isLike == true) {
+        this.dramaDetail[index].likeNum++;
       } else {
-        this.commentList[index].likeNum--;
+        this.dramaDetail[index].likeNum--;
       }
     },
     // 发表评论
