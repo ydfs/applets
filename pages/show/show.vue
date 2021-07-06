@@ -46,16 +46,15 @@
 						共{{ item.children.length }}条回复
 						<u-icon class="more" name="arrow-right" :size="26" v-if="item.children.length > 2"></u-icon>
 					</view>
+
+						<view class="input-container-two" v-show="show">
+							<input class="inputComment" @confirm="handleReply" type="text" placeholder="回复你的看法"
+								v-model="replyContent" />
+						</view>
+
 				</view>
 				<view class="bottom">
 					{{ item.created_at.substring(0, 10) }}
-					<u-popup v-model="show" mode="bottom">
-						<view class="input-container-two">
-							<input class="inputComment" @confirm="handleReply" type="text" placeholder="回复你的看法"
-								v-model="replyContent" />
-							<view class="submit-btn" @click="handleReply">里回复</view>
-						</view>
-					</u-popup>
 					<view @click="clickReply({item})" class="reply">回复</view>
 				</view>
 			</view>
@@ -164,6 +163,7 @@
 					content: this.releaseContent,
 				}).then(res => {
 					this.releaseContent = "";
+					this.dramaDetails(this.dramaId);
 				})
 			},
 			clickReply({item}) {
@@ -181,7 +181,6 @@
 					})
 					return
 				}
-				console.log(this.dramaId,"this.dramaId:")
 				dramaContent.dramaComment(this.dramaId, {
 					content: this.replyContent,
 					parent_id: this.parentId,
@@ -189,7 +188,7 @@
 				}).then(res => {
 					this.replyContent = "";
 					this.show = false;
-					this.dramaDetails();
+					this.dramaDetails(this.dramaId);
 				})
 			},
 
@@ -254,7 +253,7 @@
 	}
 
 	.inputComment {
-		width: 175rpx;
+		width: 400rpx;
 		height: 76rpx;
 		padding: 0 25rpx;
 		line-height: 76rpx;
@@ -356,14 +355,14 @@
 				font-size: 24rpx;
 				color: #9a9a9a;
 
-				.input-container-two {
-					margin: 32px;
-					width: 80%;
-					height: 80rpx;
-					border: 1rpx solid rgb(229, 229, 229);
-					border-radius: 15rpx;
-					position: relative;
-				}
+				// .input-container-two {
+				// 	margin: 32px;
+				// 	width: 80%;
+				// 	height: 80rpx;
+				// 	border: 1rpx solid rgb(229, 229, 229);
+				// 	border-radius: 15rpx;
+				// 	position: relative;
+				// }
 
 				.reply {
 					color: #5677fc;
