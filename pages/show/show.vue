@@ -21,7 +21,7 @@
 		<view class="item-number">
 			<h3 style="padding-left: 5px;">共{{ filterRoutesLength }}条评论</h3>
 		</view>
-		<view class="comment" v-for="item in dramaDetail" :key="item.index">
+		<view class="comment" v-for="item in commentList" :key="item.index">
 			<view class="left">
 				<image class="head-portrait" :src="item.user.avatar_url" mode="aspectFill">
 				</image>
@@ -56,7 +56,7 @@
 							<view class="submit-btn" @click="handleReply">里回复</view>
 						</view>
 					</u-popup>
-					<view @click="clickReply(item.id, item.user.id)" class="reply">回复</view>
+					<view @click="clickReply({item})" class="reply">回复</view>
 				</view>
 			</view>
 		</view>
@@ -69,10 +69,9 @@
 		data() {
 			return {
 				content: {},
-				dramaDetail: {},
+				commentList: {},
 				releaseContent: '',
 				show: false,
-				//formLabelWidth: "80rpx",
 				replyContent: "",
 				parentId: 0,
 				userId: 0,
@@ -108,8 +107,8 @@
 				dramaContent.dramaDetails(id, {
 					page: this.currentPage
 				}).then(res => {
-					this.dramaDetail = res.comments;
-					console.log(this.dramaDetail);
+					this.commentList = res.comments;
+					console.log(this.commentList);
 					this.filterRoutes = this.filterNavigator(res.comments);
 					let filterRoutesLength = 0;
 					this.filterRoutes.forEach(item => {
@@ -145,11 +144,11 @@
 			
 			// 点赞
 			getLike(index) {
-				this.dramaDetail[index].isLike = !this.dramaDetail[index].isLike;
-				if (this.dramaDetail[index].isLike == true) {
-					this.dramaDetail[index].likeNum++;
+				this.commentList[index].isLike = !this.commentList[index].isLike;
+				if (this.commentList[index].isLike == true) {
+					this.commentList[index].likeNum++;
 				} else {
-					this.dramaDetail[index].likeNum--;
+					this.commentList[index].likeNum--;
 				}
 			},
 			// 发表评论
@@ -167,10 +166,11 @@
 					this.releaseContent = "";
 				})
 			},
-			clickReply(parentId, userId) {
+			clickReply({item}) {
+				console.log(item,'*******item')
 				this.show = true;
-				parentId: this.parentId;
-				userId:  this.userId;
+				this.parentId = item.id;
+				this.userId = item.user.id;
 			},
 			// 发表2级评论
 			handleReply() {
@@ -181,6 +181,7 @@
 					})
 					return
 				}
+				console.log(this.dramaId,"this.dramaId:")
 				dramaContent.dramaComment(this.dramaId, {
 					content: this.replyContent,
 					parent_id: this.parentId,
